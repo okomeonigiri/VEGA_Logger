@@ -216,6 +216,37 @@
             box-shadow: 0 0 10px rgba(255, 155, 61, 0.4);
         }
 
+        .btn-line-switch {
+            margin-left: 0;
+            min-width: 170px;
+            align-self: flex-start;
+            padding: 6px 10px;
+        }
+
+        .btn-line-switch .switch-label {
+            color: #f2f5f8;
+        }
+
+        .btn-line-switch .switch-track {
+            border-color: #4c5057;
+            background: #0c0f14;
+        }
+
+        .btn-line-switch .switch-track::before {
+            background: linear-gradient(90deg, #f8fafc, #ffffff);
+        }
+
+        .btn-line-switch .switch-thumb {
+            background: #fefefe;
+            border-color: #d9dde3;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+        }
+
+        .btn-line-switch.active {
+            color: #ffffff;
+            box-shadow: none;
+        }
+
         .rc-panel {
             margin-bottom: 16px;
             display: flex;
@@ -846,8 +877,12 @@
             </div>
             <div class="rc-speed">
                 <label class="rc-speed-label" for="rcSpeedSlider">RC Speed</label>
-                <input type="range" id="rcSpeedSlider" class="rc-speed-slider" min="80" max="200" step="5" value="100">
-                <div class="rc-speed-value"><span id="rcSpeedValue">100</span>%</div>
+                <input type="range" id="rcSpeedSlider" class="rc-speed-slider" min="80" max="200" step="5" value="150">
+                <div class="rc-speed-value"><span id="rcSpeedValue">150</span></div>
+                <button class="btn-status btn-realtime-switch btn-line-switch active" id="lineAvoidSwitchBtn" onclick="toggleLineAvoidSwitch()" aria-pressed="true">
+                    <span class="switch-label">Line Avoid</span>
+                    <span class="switch-track"><span class="switch-thumb"></span></span>
+                </button>
             </div>
         </div>
 
@@ -976,11 +1011,12 @@
         let rcSendInFlight = false;
         let rcPendingMove = null;
         let rcLastSentAtMs = 0;
-        let rcSpeedPercent = 50;
+        let rcSpeedPercent = 150;
         let rcKeyUp = false;
         let rcKeyDown = false;
         let rcKeyLeft = false;
         let rcKeyRight = false;
+        let lineAvoidEnabled = true;
         let wirelessHealthTimer = null;
         let wirelessHealthBusy = false;
         let wirelessHealthFailCount = 0;
@@ -1639,6 +1675,7 @@
             const runStartBtn = document.getElementById('runStartBtn');
             const runStopBtn = document.getElementById('runStopBtn');
             const runRcBtn = document.getElementById('runRcBtn');
+            const lineAvoidSwitchBtn = document.getElementById('lineAvoidSwitchBtn');
             const rcPanel = document.getElementById('rcPanel');
 
             if (!runVisible && rcMode) {
@@ -1655,10 +1692,41 @@
             if (runStartBtn) runStartBtn.disabled = !runEnabled;
             if (runStopBtn) runStopBtn.disabled = !runEnabled;
             if (runRcBtn) runRcBtn.disabled = !runEnabled;
+            if (lineAvoidSwitchBtn) lineAvoidSwitchBtn.disabled = !runEnabled;
             if (serialEnabled && rcMode) {
                 setRcMode(false, true);
             }
             if (rcPanel) rcPanel.classList.toggle('hidden', !rcMode || !runVisible);
+        }
+
+        function updateLineAvoidButton() {
+            const lineAvoidSwitchBtn = document.getElementById('lineAvoidSwitchBtn');
+            if (!lineAvoidSwitchBtn) {
+                return;
+            }
+            lineAvoidSwitchBtn.classList.toggle('active', lineAvoidEnabled);
+            lineAvoidSwitchBtn.setAttribute('aria-pressed', lineAvoidEnabled ? 'true' : 'false');
+        }
+
+        async function setLineAvoid(enabled) {
+            if (isSerialConnected()) {
+                addConsoleLog('Line avoid control is unavailable while Serial is connected.');
+                return;
+            }
+
+            if (!wirelessConnected) {
+                addConsoleLog('Line avoid control requires WiFi connection.');
+                return;
+            }
+
+            await sendSerialCommand(enabled ? 'line on' : 'line off', false);
+            lineAvoidEnabled = !!enabled;
+            updateLineAvoidButton();
+            addConsoleLog('Line avoid ' + (lineAvoidEnabled ? 'enabled' : 'disabled') + '.');
+        }
+
+        function toggleLineAvoidSwitch() {
+            setLineAvoid(!lineAvoidEnabled);
         }
 
         async function setRunMode(mode) {
@@ -1697,7 +1765,7 @@
         function normalizeRcSpeedPercent(value) {
             const numeric = Number(value);
             if (!Number.isFinite(numeric)) {
-                return 100;
+                return 150;
             }
             const clamped = Math.max(80, Math.min(200, Math.round(numeric)));
             return Math.round(clamped / 5) * 5;
@@ -1751,16 +1819,13 @@
                 triggerRcAction('rc turn right');
             } else if (key === 'b') {
                 event.preventDefault();
-                triggerRcAction('rc goal blue');
+                triggerRcAction('line on');
             } else if (key === 'y') {
                 event.preventDefault();
-                triggerRcAction('rc goal yellow');
+                triggerRcAction('line off');
             } else if (key === 'g') {
                 event.preventDefault();
                 triggerRcAction('gyro zero');
-            } else if (event.code === 'Space' || event.key === ' ') {
-                event.preventDefault();
-                triggerRcAction('rc kick');
             }
         }
 
@@ -2794,6 +2859,7 @@
                 const supportsWireless = command.toLowerCase().startsWith('run ')
                     || command.toLowerCase().startsWith('rc ')
                     || command.toLowerCase().startsWith('m ')
+                    || command.toLowerCase().startsWith('line ')
                     || command.toLowerCase().startsWith('gyro zero')
                     || command.toLowerCase() === 'get model'
                     || command.toLowerCase().startsWith('set model ')
@@ -2944,6 +3010,7 @@
             updateRealtimeButton();
             updateRcStickVisual();
             updateRcSpeedUi();
+            updateLineAvoidButton();
             updateWirelessStatus(false);
             updateControlAvailability();
             const slider = document.getElementById('data-slider');
