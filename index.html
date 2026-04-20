@@ -5,36 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VEGA Dashboard</title>
     <style>
+        @font-face {
+            font-family: 'ORION DK';
+            src: url('/assets/fonts/ORIONDK.TTF') format('truetype'),
+                 url('./assets/fonts/ORIONDK.TTF') format('truetype');
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+        }
         /* ============================================================
             サイズ設定
            ============================================================ */
         :root {
             --logo-height: 35px;
             --dashboard-font-size: 40px;
+            --rc-pad-border: #ff9f43;
+            /* --rc-guide-line: rgba(255, 175, 82, 0.45); */
+            /* --rc-pad-glow: rgba(255, 159, 67, 0.24); */
+            --rc-stick-grad-start: #ffd166;
+            --rc-stick-grad-end: #ff7a00;
+            --rc-stick-border: #b65300;
+            --rc-stick-glow: rgba(255, 122, 0, 0.42);
         }
-        /* ============================================================ */
-
+        
+        html,
+        body {
+            background-color: #000000;
+            height: 100%;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f6f8;
-            padding: 10px;
+            /* padding: 10px 10px 0; */
             overflow-x: hidden;
             color: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-footer {
+            width: 100%;
+            margin-top: auto;
+            background-color: #1f293a;
+            border-radius: 15px 15px 0 0;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 14px;
+            font-size: 12px;
+            line-height: 1.4;
+            position: fixed;
+            z-index: 1000;
+            bottom: 0;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 95%;
+            align-self: center;
+            flex: 1 0 auto;
             background-color: transparent;
             border: none;
             border-radius: 0;
-            padding: 20px;
+            padding: 0;
         }
 
         .header {
@@ -51,9 +89,33 @@
         }
         
         .title {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.6em;
+            flex-direction: row;
             font-size: 25px;
             color: #EB0082;
             font-weight: bold;
+        }
+
+        .title-logo {
+            height: 40px;
+            display: block;
+        }
+
+        .title-text {
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 56px;
+            font-weight: 400;
+            font-family: 'ORION DK', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: inline-block; /* transformを効かせるために必要 */
+            color: #010101;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            margin-bottom: -11px;
         }
 
         .status-info {
@@ -104,6 +166,7 @@
 
         button:active {
             transform: translateY(0px);
+            color: #ffffff;
         }
 
         button:disabled {
@@ -111,12 +174,12 @@
             cursor: not-allowed;
             transform: none !important;
             background-color: #b0bac8;
-            color: #6b7a8d;
+            color: #000000;
         }
 
         button:disabled:hover {
             background-color: #b0bac8;
-            color: #6b7a8d;
+            color: #5f4b4b;
         }
 
 .btn-connect.connected {
@@ -225,20 +288,20 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 2px solid #6b7a8d;
+            border: 2px solid var(--rc-pad-border);
             position: relative;
             background: transparent;
             touch-action: none;
             user-select: none;
             cursor: pointer;
-            box-shadow: inset 0 0 24px rgba(255, 155, 61, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.02);
+            box-shadow: inset 0 0 24px var(--rc-pad-glow), 0 0 0 1px rgba(255, 255, 255, 0.02);
         }
 
         .rc-pad::before,
         .rc-pad::after {
             content: '';
             position: absolute;
-            background: rgba(74, 85, 104, 0.25);
+            background: var(--rc-guide-line);
             pointer-events: none;
         }
 
@@ -262,13 +325,13 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(160deg, #8aafd8, #3a6abf);
-            border: 2px solid #1a3a6a;
+            background: linear-gradient(160deg, var(--rc-stick-grad-start), var(--rc-stick-grad-end));
+            border: 2px solid var(--rc-stick-border);
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15), 0 0 10px rgba(58, 106, 191, 0.25);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15), 0 0 10px var(--rc-stick-glow);
             pointer-events: none;
         }
 
@@ -626,6 +689,8 @@
             color: #c8d8f0;
             scrollbar-width: thin;
             scrollbar-color: #3a6abf #2b2b2b;
+
+            display: none;
         }
 
         .console-info::-webkit-scrollbar {
@@ -719,22 +784,22 @@
 
         @media (max-width: 720px) {
             body {
-                padding: 6px;
+                padding: 0;
             }
 
             .container {
-                padding: 12px;
+                padding: 0;
             }
 
             .header {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center;
                 gap: 10px;
             }
 
             .header-actions {
                 width: 100%;
-                justify-content: stretch;
+                justify-content: center;
             }
 
             .wifi-combined {
@@ -762,8 +827,8 @@
 
         .wifi-host-input {
                 flex: 1 1 180px;
-                min-width: 0;
-                width: auto;
+                min-width: 200px;
+                max-width: 250px;
                 font-size: 14px;
                 padding: 10px 11px;
             }
@@ -782,6 +847,29 @@
 
             .rc-panel {
                 justify-content: center;
+            }
+
+            .site-footer {
+                font-size: 11px;
+                padding: 9px 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .title {
+                flex-direction: column;
+                gap: 0.3em;
+            }
+
+            .title-logo {
+                height: 34px;
+            }
+
+            .title-text {
+                height: auto;
+                line-height: 1.1;
+                font-size: 38px;
+                margin-bottom: 0;
             }
         }
 
@@ -829,14 +917,156 @@
         .btn-wifi.active:hover {
             background-color: #e08500;
         }
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #49b7ff, #8de9ff);
+            margin: 6px 0 14px;
+        }
+
+        .rc-panel {
+            background: linear-gradient(160deg, #434852, #3a3f48);
+            border: 1px solid #5e646f;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 20px;
+            padding-left: 3%;
+            display: flex;
+            gap: 18px;
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .rc-pad{
+            background: radial-gradient(circle at 50% 40%, #f1fbff, #d8f3ff);
+        }
+
+        .rc-speed-label {
+            color: #ffffff;
+        }
+
+        .rc-speed-value,
+        #rcSpeedValue {
+            color: #ffffff;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 18% -8%, #b9e6ff 0%, rgba(185, 230, 255, 0) 38%),
+                radial-gradient(circle at 92% 2%, #c9dcff 0%, rgba(201, 220, 255, 0) 34%),
+                linear-gradient(180deg, #eef8ff 0%, #e7f3ff 52%, #f2f9ff 100%);
+        }
+
+        .controls,
+        .run-controls {
+            background: linear-gradient(165deg, #484d57, #3b4049);
+            border: 1px solid #5f6671;
+            border-radius: 14px;
+            padding: 12px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+        }
+
+        .line-sensor-section,
+        .graph-container,
+        .table-container {
+            background: #f7fcff;
+            border: 1px solid #bde7ff;
+            border-radius: 12px;
+            box-shadow: 0 8px 22px rgba(73, 183, 255, 0.14);
+        }
+
+        .console-info {
+            background: #232833;
+            border-color: #4b535f;
+        }
+
+        .wifi-combined {
+            background: #eef8ff;
+            border-color: #b4ddff;
+        }
+
+        button {
+            background-color: #49b7ff;
+            color: #ffffff;
+        }
+
+        button:hover {
+            background-color: #2daeff;
+        }
+
+        .btn-clear,
+        .btn-status,
+        .btn-wifi,
+        .btn-get-logs {
+            background-color: #6ecbff;
+            color: #ffffff;
+        }
+
+        .btn-connect.connected,
+        .btn-get-logs.loading,
+        .btn-sensor.active,
+        .btn-wifi.active {
+            background-color: #1da8ff;
+            color: #ffffff;
+        }
+
+        .btn-wifi.active:hover {
+            background-color: #079af6;
+        }
+
+        /* Action button emphasis */
+        #runStartBtn,
+        .btn-run-start {
+            background-color: #1f9d46 !important;
+            color: #ffffff !important;
+        }
+
+        #runStartBtn:hover,
+        .btn-run-start:hover {
+            background-color: #17853a !important;
+        }
+
+        #runStopBtn,
+        .btn-run-stop {
+            background-color: #d62828 !important;
+            color: #ffffff !important;
+        }
+
+        #runStopBtn:hover,
+        .btn-run-stop:hover {
+            background-color: #b71f1f !important;
+        }
+
+        #runRcBtn,
+        .btn-run-rc,
+        .btn-run-rc.active {
+            background-color: #f08c00 !important;
+            border-color: #f08c00 !important;
+            color: #ffffff !important;
+        }
+
+        #runRcBtn:hover,
+        .btn-run-rc:hover {
+            background-color: #d97706 !important;
+        }
+
+        /* Monitor text contrast */
+        #realtimeBtn .switch-label {
+            color: #f8fbff !important;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+        }
+
+        #realtimeBtn.active .switch-label {
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="title" style="display:flex;align-items:center;gap:0.6em;">
-                <img src="VEGA.png" alt="VEGA" style="height:40px;display:block;">
-                <span style="display:block;height:50px;line-height:50px;font-size:54px;font-weight:700;color:#1a1a2e;letter-spacing:0.5px;white-space:nowrap; margin-bottom:6px;">Dashboard</span>
+            <div class="title">
+                <img src="/assets/images/VEGA.png" alt="VEGA" class="title-logo">
+                <span class="title-text">Dashboard</span>
             </div>
             <div class="header-actions">
                 <div class="wifi-combined" id="wifiCombined">
@@ -873,7 +1103,7 @@
 
         <div class="controls">
             <button class="btn-connect disconnected" id="connectBtn" onclick="handleSerialConnect()">Disconnected</button>
-            <button class="btn-get-logs" id="getLogsBtn" onclick="requestLogs()" title="Get Logs" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;">Get Logs <img src="Download.png" style="height:16px;display:block;filter:brightness(0) invert(0.3);"></button>
+            <button class="btn-get-logs" id="getLogsBtn" onclick="requestLogs()" title="Get Logs" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;">Get Logs <img src="/assets/images/Download.png" style="height:16px;display:block;filter:brightness(0) invert(0.3);"></button>
             <button class="btn-clear" id="clearBtn" onclick="clearLogs()">Clear</button>
             <button class="btn-status" id="statusBtn" onclick="requestStatus()">Status</button>
             <button class="btn-status btn-realtime-switch" id="realtimeBtn" onclick="toggleRealtimeMode()" aria-pressed="false">
@@ -881,6 +1111,8 @@
                 <span class="switch-track"><span class="switch-thumb"></span></span>
             </button>
         </div>
+
+        <div class="section-divider" aria-hidden="true"></div>
 
         <div class="sensor-buttons" id="sensor-buttons">
             <button class="btn-sensor" disabled>Line</button>
@@ -930,7 +1162,10 @@
         <div class="console-info" id="console"></div>
     </div>
 
+    <footer class="site-footer">© 2026 VEGA - All Rights Reserved</footer>
+
     <script>
+        const development = true;
         const mockData = {};
 
         let port = null;
@@ -1478,6 +1713,7 @@
 
         function addConsoleLog(message) {
             const consoleEl = document.getElementById('console');
+            consoleEl.style.display = 'block';
             const div = document.createElement('div');
             div.textContent = message;
             consoleEl.appendChild(div);
@@ -1650,8 +1886,8 @@
 
         function updateControlAvailability() {
             const serialEnabled = isSerialConnected();
-            const runEnabled = wirelessConnected && !serialEnabled;
-            const runVisible = wirelessConnected;
+            const runEnabled = development || (wirelessConnected && !serialEnabled);
+            const runVisible = development || wirelessConnected;
             const getLogsBtn = document.getElementById('getLogsBtn');
             const clearBtn = document.getElementById('clearBtn');
             const statusBtn = document.getElementById('statusBtn');
@@ -1681,7 +1917,7 @@
             if (serialEnabled && rcMode) {
                 setRcMode(false, true);
             }
-            if (rcPanel) rcPanel.classList.toggle('hidden', !rcMode || !runVisible);
+            if (rcPanel) rcPanel.classList.toggle('hidden', !development && (!rcMode || !runVisible));
         }
 
         function updateLineAvoidButton() {
