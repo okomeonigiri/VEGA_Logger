@@ -83,115 +83,66 @@
         }
 
         button {
-            --btn-border: #3c6481;
-            --btn-text: #1a3a5c;
-            --btn-bg: #e8f0fa;
-            --btn-glow: rgba(90, 154, 255, 0.3);
             padding: 8px 15px;
             border: none;
-            border-radius: 3px;
+            outline: none;
+            border-radius: 6px;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+            background-color: #4a5568;
+            color: #ffffff;
+            height: 36px;
+            box-sizing: border-box;
+            transition: background-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
         }
 
         button:hover {
-            background-color: var(--btn-border);
-            color: #0f1722;
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: none;
+            background-color: #3a4458;
+            transform: translateY(-1px);
         }
 
         button:active {
-            transform: translateY(-1px) scale(1.01);
+            transform: translateY(0px);
         }
 
         button:disabled {
-            opacity: 0.45;
+            opacity: 1;
             cursor: not-allowed;
-            filter: grayscale(0.2);
             transform: none !important;
-            box-shadow: none !important;
+            background-color: #b0bac8;
+            color: #6b7a8d;
         }
 
         button:disabled:hover {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
+            background-color: #b0bac8;
+            color: #6b7a8d;
         }
 
-        .btn-get-logs {
-            --btn-border: #5a9aff;
-            --btn-text: #ffffff;
-            --btn-bg: #152435;
-            --btn-glow: rgba(90, 154, 255, 0.35);
-        }
-
-        .btn-get-logs:hover {
+.btn-get-logs:hover {
             color: #0c1a2f;
         }
 
-        .btn-connect {
-            --btn-border: #7fa8ff;
-            --btn-text: #ffffff;
-            --btn-bg: #152030;
-            --btn-glow: rgba(127, 168, 255, 0.35);
-        }
-
-        .btn-connect:hover {
+.btn-connect:hover {
             color: #0f1a30;
         }
 
-        .btn-connect.disconnected {
-            --btn-border: #7b8088;
-            --btn-text: #ffffff;
-            --btn-bg: #1d2026;
-            --btn-glow: rgba(124, 130, 140, 0.35);
-        }
-
-        .btn-connect.connected {
+.btn-connect.connected {
             --btn-border: #ffb74d;
             --btn-text: #ffffff;
             --btn-bg: #2a2214;
             --btn-glow: rgba(255, 184, 77, 0.4);
         }
 
-        .btn-clear {
-            --btn-border: #ff9a76;
-            --btn-text: #ffffff;
-            --btn-bg: #2a1d1a;
-            --btn-glow: rgba(255, 154, 118, 0.35);
-        }
-
-        .btn-clear:hover {
+.btn-clear:hover {
             color: #2a140d;
         }
 
-        .btn-run {
-            --btn-border: #6e7a8a;
-            --btn-text: #ffffff;
-            --btn-bg: #1a1f26;
-            --btn-glow: rgba(110, 122, 138, 0.35);
-        }
-
-        .btn-run:hover {
+.btn-run:hover {
             color: #0d1520;
         }
 
-        .btn-run:disabled,
-        .btn-run.disabled {
-            --btn-border: #444b55;
-            --btn-text: #8f98a3;
-            --btn-bg: #171b21;
-            --btn-glow: rgba(68, 75, 85, 0.2);
-            opacity: 0.5;
-            cursor: not-allowed;
-            filter: grayscale(0.15);
-        }
-
-        .btn-run:disabled:hover,
+.btn-run:disabled:hover,
         .btn-run.disabled:hover {
             background-color: var(--btn-bg);
             color: var(--btn-text);
@@ -199,32 +150,18 @@
             box-shadow: none;
         }
 
-        .btn-run-start {
-            --btn-border: #4fbf73;
-            --btn-text: #ffffff;
-            --btn-bg: #14241a;
-            --btn-glow: rgba(79, 191, 115, 0.35);
-        }
-
-        .btn-run-stop {
+.btn-run-stop {
             --btn-border: #ff6f61;
             --btn-text: #ffffff;
             --btn-bg: #2a1815;
             --btn-glow: rgba(255, 111, 97, 0.35);
         }
 
-        .btn-run-rc {
-            --btn-border: #ff9b3d;
-            --btn-text: #ffffff;
-            --btn-bg: #2a1b10;
-            --btn-glow: rgba(255, 155, 61, 0.35);
-        }
-
-        .btn-run-rc.active {
-            background-color: var(--btn-border);
-            border-color: var(--btn-border);
-            color: #241400;
-            box-shadow: 0 0 10px rgba(255, 155, 61, 0.4);
+.btn-run-rc.active {
+            background-color: #3a6abf;
+            border-color: #3a6abf;
+            color: #ffffff;
+            box-shadow: none;
         }
 
         .btn-line-switch {
@@ -235,6 +172,7 @@
         }
 
         .btn-line-switch .switch-label {
+            font-size: 12px;
             color: #f2f5f8;
         }
 
@@ -283,19 +221,19 @@
 
         .rc-speed-label {
             font-size: 12px;
-            color: #ffd7b0;
+            color: #4a5568;
             font-weight: 700;
             letter-spacing: 0.2px;
         }
 
         .rc-speed-slider {
             width: 100%;
-            accent-color: #ff9b3d;
+            accent-color: #3a6abf;
         }
 
         .rc-speed-value {
             font-size: 11px;
-            color: #ffb066;
+            color: #6b7a8d;
             text-align: right;
         }
 
@@ -303,11 +241,11 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 2px solid #c8742e;
+            border: 2px solid #6b7a8d;
             position: relative;
             background:
-                radial-gradient(circle at center, rgba(255, 180, 92, 0.26) 0%, rgba(255, 155, 61, 0.10) 38%, rgba(16, 11, 9, 0.94) 70%),
-                #120d0a;
+                radial-gradient(circle at center, rgba(90, 138, 223, 0.15) 0%, rgba(58, 106, 191, 0.08) 38%, rgba(240, 243, 248, 0.97) 70%),
+                #f0f3f8;
             touch-action: none;
             user-select: none;
             cursor: pointer;
@@ -318,7 +256,7 @@
         .rc-pad::after {
             content: '';
             position: absolute;
-            background: rgba(255, 182, 104, 0.28);
+            background: rgba(74, 85, 104, 0.25);
             pointer-events: none;
         }
 
@@ -342,38 +280,24 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(160deg, #ffd09a, #ff9b3d);
-            border: 2px solid #552600;
+            background: linear-gradient(160deg, #8aafd8, #3a6abf);
+            border: 2px solid #1a3a6a;
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 155, 61, 0.18);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15), 0 0 10px rgba(58, 106, 191, 0.25);
             pointer-events: none;
         }
 
         .rc-info {
             font-size: 12px;
-            color: #ffd7b0;
+            color: #4a5568;
             line-height: 1.6;
         }
 
-        .btn-status {
-            --btn-border: #ffffff;
-            --btn-text: #ffffff;
-            --btn-bg: #1f1f1f;
-            --btn-glow: rgba(255, 255, 255, 0.25);
-        }
-
-        .btn-status:hover {
+.btn-status:hover {
             color: #0f211f;
-        }
-
-        .btn-status.active {
-            background-color: #ffffff;
-            border-color: #ffffff;
-            color: #0f211f;
-            box-shadow: 0 0 10px rgba(255, 184, 77, 0.35);
         }
 
         .btn-realtime-switch {
@@ -599,9 +523,9 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #ffb74d;
-            border: 2px solid #3a2a00;
-            box-shadow: 0 0 0 2px rgba(255, 167, 38, 0.2);
+            background: #3a6abf;
+            border: 2px solid #1a3060;
+            box-shadow: 0 0 0 2px rgba(58, 106, 191, 0.2);
         }
 
         .line-slider::-moz-range-track {
@@ -616,21 +540,12 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: #ffb74d;
-            border: 2px solid #3a2a00;
-            box-shadow: 0 0 0 2px rgba(255, 167, 38, 0.2);
+            background: #3a6abf;
+            border: 2px solid #1a3060;
+            box-shadow: 0 0 0 2px rgba(58, 106, 191, 0.2);
         }
 
-        .btn-sensor {
-            --btn-border: #ffffff;
-            --btn-text: #ffffff;
-            --btn-bg: #1d2026;
-            --btn-glow: rgba(124, 130, 140, 0.35);
-            padding: 6px 12px;
-            font-size: 11px;
-        }
-
-        .sensor-buttons .btn-sensor:disabled,
+.sensor-buttons .btn-sensor:disabled,
         .sensor-buttons .btn-sensor.disabled {
             opacity: 0.45;
             cursor: not-allowed;
@@ -639,13 +554,7 @@
             box-shadow: none !important;
         }
 
-        .btn-sensor:hover {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            box-shadow: none;
-        }
-
-        .btn-sensor.active {
+.btn-sensor.active {
             --btn-border: #ffffff;
             --btn-text: #0f2416;
             --btn-bg: #1a3a1a;
@@ -655,12 +564,7 @@
             box-shadow: none;
         }
 
-        .btn-sensor.active:hover {
-            color: #0f2416;
-            box-shadow: none;
-        }
-
-        .graph-container {
+.graph-container {
             background-color: #ffffff;
             border: 1px solid #e2e6ea;
             border-radius: 3px;
@@ -739,7 +643,7 @@
             font-size: 11px;
             color: #c8d8f0;
             scrollbar-width: thin;
-            scrollbar-color: #ffb74d #2b2b2b;
+            scrollbar-color: #3a6abf #2b2b2b;
         }
 
         .console-info::-webkit-scrollbar {
@@ -752,14 +656,14 @@
         }
 
         .console-info::-webkit-scrollbar-thumb {
-            background: #ffb74d;
-            border: 2px solid #3a2a00;
+            background: #3a6abf;
+            border: 2px solid #1a3060;
             border-radius: 999px;
-            box-shadow: 0 0 0 2px rgba(255, 167, 38, 0.2);
+            box-shadow: 0 0 0 2px rgba(58, 106, 191, 0.2);
         }
 
         .console-info::-webkit-scrollbar-thumb:hover {
-            background: #ffc56b;
+            background: #5a8adf;
         }
 
         .console-info div {
@@ -825,14 +729,7 @@
             box-shadow: 0 0 0 2px rgba(127, 168, 255, 0.18);
         }
 
-        .btn-wifi {
-            --btn-border: #4f8fbf;
-            --btn-text: #ffffff;
-            --btn-bg: #142130;
-            --btn-glow: rgba(79, 143, 191, 0.35);
-        }
-
-        .btn-wifi.active {
+.btn-wifi.active {
             --btn-border: #4fbf73;
             --btn-bg: #14241a;
             --btn-glow: rgba(79, 191, 115, 0.35);
@@ -892,12 +789,12 @@
             #wifiConnectBtn {
                 flex: 0 0 auto;
                 min-width: 104px;
-                font-size: 14px;
+                font-size: 12px;
                 padding: 10px 12px;
             }
 
             .controls button {
-                font-size: 14px;
+                font-size: 12px;
                 padding: 10px 12px;
             }
 
@@ -906,6 +803,50 @@
             }
         }
 
+
+        /* Connected ボタン → オレンジ */
+        .btn-connect.connected {
+            background-color: #3a6abf;
+            color: #ffffff;
+        }
+        .btn-connect.connected:hover {
+            background-color: #2a5298;
+        }
+
+        /* Get Logs 取得中 → オレンジ */
+        .btn-get-logs.loading {
+            background-color: #3a6abf;
+            color: #ffffff;
+        }
+        .btn-get-logs.loading:hover {
+            background-color: #2a5298;
+        }
+
+        /* Run/Stop ボタン */
+        .btn-run-start { background-color: #e8f5ee; color: #2a7a4a; }
+        .btn-run-start:hover { background-color: #c8ecd8; }
+        .btn-run-stop { background-color: #fdecea; color: #c0392b; }
+        .btn-run-stop:hover { background-color: #f9d0cc; }
+
+        /* センサーボタン active */
+        .btn-sensor.active {
+            background-color: #3a6abf;
+            color: #ffffff;
+        }
+
+        /* Monitor スイッチ active */
+        .btn-realtime-switch.active {
+            color: #ff9500;
+        }
+
+        /* WiFi ボタン active（接続中） */
+        .btn-wifi.active {
+            background-color: #ff9500;
+            color: #ffffff;
+        }
+        .btn-wifi.active:hover {
+            background-color: #e08500;
+        }
     </style>
 </head>
 <body>
@@ -950,8 +891,7 @@
 
         <div class="controls">
             <button class="btn-connect disconnected" id="connectBtn" onclick="handleSerialConnect()">Disconnected</button>
-            <button class="btn-get-logs" id="getLogsBtn" onclick="requestLogs()">Get Logs ⤓</button>
-            <img src="Download.png" style="height:28px;cursor:pointer;filter:brightness(0) invert(1);" onclick="requestLogs()" title="Download Logs">
+            <button class="btn-get-logs" id="getLogsBtn" onclick="requestLogs()" title="Get Logs" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;">Get Logs <img src="Download.png" style="height:16px;display:block;filter:brightness(0) invert(0.3);"></button>
             <button class="btn-clear" id="clearBtn" onclick="clearLogs()">Clear</button>
             <button class="btn-status" id="statusBtn" onclick="requestStatus()">Status</button>
             <button class="btn-status btn-realtime-switch" id="realtimeBtn" onclick="toggleRealtimeMode()" aria-pressed="false">
@@ -2736,11 +2676,13 @@
             }
             if (trimmed === '[LOG_START_CSV]') {
                 receivingCSV = true;
+                const _glBtn = document.getElementById('getLogsBtn'); if (_glBtn) _glBtn.classList.add('loading');
                 receivingLineState = false;
                 return;
             }
             if (trimmed === '[LOG_END_CSV]') {
                 receivingCSV = false;
+                const _glBtn2 = document.getElementById('getLogsBtn'); if (_glBtn2) _glBtn2.classList.remove('loading');
                 sequenceGapCount = countMissingSequences();
                 const firstMissingSequence = findFirstMissingSequence();
 
@@ -2978,6 +2920,7 @@
                 renderSensorButtons();
                 updateDisplay();
                 addConsoleLog('Loading full logs from device...');
+                const _glBtnS = document.getElementById('getLogsBtn'); if (_glBtnS) _glBtnS.classList.add('loading');
                 try {
                     // Ensure CSV response is not mixed with stale realtime stream state.
                     await sendSerialCommand('REALTIME OFF', false);
