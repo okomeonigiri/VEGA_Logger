@@ -21,12 +21,11 @@
             --dashboard-font-size: 40px;
             --rc-pad-border: #7a7a7a;
             --rc-pad-border-width: 4px;
-            /* --rc-guide-line: rgba(255, 175, 82, 0.45); */
-            --rc-pad-glow: rgba(70, 70, 70, 0.24);
-            --rc-stick-grad-start: #000000;
-            --rc-stick-grad-end: #535353;
+            /* --rc-pad-glow: rgba(0, 0, 0, 0.14); */
+            --rc-stick-grad-start: #252525;
+            --rc-stick-grad-end: #252525;
             --rc-stick-border: #636363;
-            --rc-stick-glow: rgba(0, 0, 0, 0.52);
+            /* --rc-stick-glow: rgba(0, 0, 0, 0.52); */
         }
         
         html,
@@ -938,7 +937,8 @@
         }
 
         .rc-pad{
-            background: radial-gradient(circle at 50% 40%, #f1fbff, #d8f3ff);
+            /* background: radial-gradient(circle at 50% 40%, #f1fbff, #d8f3ff); */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .rc-speed-label {
@@ -953,17 +953,17 @@
             /* font-size: medium; */
         }
 
-        body {
+        /* body {
             background: #eaf4ff;
-        }
+        } */
 
         .controls,
         .run-controls {
-            background: linear-gradient(165deg, #484d57, #3b4049);
-            border: 1px solid #5f6671;
+            /* background: linear-gradient(165deg, #484d57, #3b4049); */
+            /* border: 1px solid #5f6671; */
             border-radius: 14px;
             padding: 12px;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+            /* box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05); */
         }
 
         .line-sensor-section,
@@ -3266,7 +3266,7 @@
 
         window.addEventListener('resize', () => {
             updateDisplay();
-        });
+        })
     </script>
 </body>
 </html>
